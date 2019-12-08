@@ -71,7 +71,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
   return distance;
 }
 
@@ -88,7 +88,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  return (-1) * b / a;
+  return -b / a;
 }
 
 
@@ -185,7 +185,7 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  const round = Math.pow(10, pow);
+  const round = 10 ** pow;
   return Math.round(num / round) * round;
 }
 
@@ -207,7 +207,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  for (let i = 2; i < n; i++) {
+  for (let i = 2; i < n; i += 1) {
     if (n % i === 0) return false;
   }
   return true;
@@ -229,8 +229,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  if (!isNaN(parseFloat(value)) && isFinite(value)) return value;
-  return def;
+  return Number(value) || def;
 }
 
 module.exports = {
