@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* *********************************************************************************************
  *                                                                                             *
  * Plese read the following tutorial before implementing tasks:                                *
@@ -26,7 +27,7 @@
 function getComposition(f, g) {
   return function (x) {
     return f(g(x));
-  }
+  };
 }
 
 
@@ -49,7 +50,7 @@ function getComposition(f, g) {
 function getPowerFunction(exponent) {
   return function (value) {
     return Math.pow(value, exponent);
-  }
+  };
 }
 
 
@@ -67,10 +68,8 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-  var args = [...arguments];
-  return (x) => args.reduce(function (r, arg, i) {
-    return r + arg * Math.pow(x, (args.length - i - 1))
-  }, 0)
+  const args = [...arguments];
+  return (x) => args.reduce((r, arg, i) => r + arg * Math.pow(x, (args.length - i - 1)), 0);
 }
 
 
@@ -89,15 +88,14 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-  var cache = null;
+  let cache = null;
   return function (value) {
     if (cache !== null) {
       return cache;
-    } else {
-      cache = func(value)
-       return cache;
     }
-  }
+    cache = func(value);
+    return cache;
+  };
 }
 
 
@@ -120,13 +118,12 @@ function retry(func, attempts) {
   return function () {
     for (let i = 0; i <= attempts; i++) {
       try {
-        return func.apply(this, arguments)
+        return func.apply(this, arguments);
       } catch (err) {
-        if (i > attempts)
-        throw err
+        if (i > attempts) throw err;
       }
     }
-  }
+  };
 }
 
 
@@ -155,13 +152,13 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
   return function () {
-    var argsStr = arguments.length > 0 ? JSON.stringify([...arguments]) : '';
+    let argsStr = arguments.length > 0 ? JSON.stringify([...arguments]) : '';
     argsStr = argsStr.length ? argsStr.substring(1, argsStr.length - 1) : argsStr;
-    logFunc(func.name + '(' + argsStr + ') starts');
-    var r = func.apply(this, arguments);
-    logFunc(func.name + '(' + argsStr + ') ends');
+    logFunc(`${func.name}(${argsStr}) starts`);
+    const r = func.apply(this, arguments);
+    logFunc(`${func.name}(${argsStr}) ends`);
     return r;
-  }
+  };
 }
 
 
@@ -180,19 +177,19 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn, ...args) {
   return function () {
-    var str = '';
-    var x;
+    let str = '';
+    let x;
     if (args.length) {
       x = JSON.stringify(args);
       str += x.substring(1, x.length - 1);
     }
     if (str.length && arguments.length) {
       str += ',';
-      x = JSON.stringify([...arguments])
+      x = JSON.stringify([...arguments]);
       str += x.substring(1, x.length - 1);
     }
-    return eval('fn(' + str + ')');
-  }
+    return eval(`fn(${str})`);
+  };
 }
 
 
@@ -216,7 +213,7 @@ function partialUsingArguments(fn, ...args) {
 function getIdGeneratorFunction(startFrom) {
   return function () {
     return startFrom++;
-  }
+  };
 }
 
 
